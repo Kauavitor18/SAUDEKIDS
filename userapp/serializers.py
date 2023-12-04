@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import ProfissionalDeSaude, Vacina, ProfissionalSaudeEUSF, UnidadeSaudeFamiliar, HistoricoDeVacinas, Cuidador, CuidadorCrianca, Crianca, CrescimentoCrianca, Agendamento, Endereco, Consulta, Medico, CriancaVacina, Desenvolvimento, SinaisAlerta, CuidadosEspeciais, Aleitamento, LeiteArtificial, Aplicacao, ExameOcular, CuidadosEspeciais
+from .models import ProfissionalDeSaude, Vacina, ProfissionalSaudeEUSF, UnidadeSaudeFamiliar, HistoricoDeVacinas, Cuidador, CuidadorCrianca, Crianca, CrescimentoCrianca, Agendamento, Endereco, Consulta, Medico, CriancaVacina, Desenvolvimento, SinaisAlerta, CuidadosEspeciais, Aleitamento, LeiteArtificial, Aplicacao, ExameOcular, CuidadosEspeciais, DesenvolvimentoInfantil
 
 class LoginSerializer(serializers.ModelSerializer):
     email = serializers.EmailField()
@@ -121,4 +121,10 @@ class ExameOcularSerializer(serializers.ModelSerializer):
 class CuidadosEspeciaisSerializer(serializers.ModelSerializer):
     class Meta:
         model = CuidadosEspeciais
+        fields = '__all__'
+
+
+class DesenvolvimentoInfantilSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DesenvolvimentoInfantil
         fields = '__all__'

@@ -1,6 +1,6 @@
 from rest_framework import routers
 
-from .views import ProfissionalDeSaudeViewSet, VacinaViewSet, ProfissionalSaudeEUSFViewset, HistoricoDeVacinasViewset, UnidadeSaudeFamiliarViewset, CuidadorViewset, CuidadorCriancaViewset, CriancaViewset, CrescimentoCriancaViewset, AgendamentoViewSet, EnderecoViewSet, ConsultaViewSet, MedicoViewSet, CriancaVacinaViewSet, DesenvolvimentoViewset, SinaisAlertaViewset, CuidadosEspeciaisViewset, AleitamentoViewset, LeiteArtificialViewset, AplicacaoViewSet, ExameOcularViewSet, CuidadosEspeciaisViewSet
+from .views import ProfissionalDeSaudeViewSet, VacinaViewSet, ProfissionalSaudeEUSFViewset, HistoricoDeVacinasViewset, UnidadeSaudeFamiliarViewset, CuidadorViewset, CuidadorCriancaViewset, CriancaViewset, CrescimentoCriancaViewset, AgendamentoViewSet, EnderecoViewSet, ConsultaViewSet, MedicoViewSet, CriancaVacinaViewSet, DesenvolvimentoViewset, SinaisAlertaViewset, CuidadosEspeciaisViewset, AleitamentoViewset, LeiteArtificialViewset, AplicacaoViewSet, ExameOcularViewSet, CuidadosEspeciaisViewSet, DesenvolvimentoInfantilViewSet, CriancaViewSet
 
 router = routers.DefaultRouter()
 
@@ -26,6 +26,7 @@ router.register(r'criancavacina', CriancaVacinaViewSet)
 router.register(r'aplicacao', AplicacaoViewSet)
 router.register(r'exame_ocular', ExameOcularViewSet)
 router.register(r'cuidados_especiais', CuidadosEspeciaisViewSet)
+router.register(r'desenvolvimento_infantil', DesenvolvimentoInfantilViewSet)
 
 
 urlpatterns = router.urls

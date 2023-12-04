@@ -311,3 +311,24 @@ class CuidadosEspeciais(models.Model):
     higiene_cuidados_gerais = models.CharField(max_length=50, choices=[(tag.name, tag.name.replace('_', ' ')) for tag in HigieneCuidadosGerais], default=HigieneCuidadosGerais.PRESERVADO.name)
     sinais_violencias_negligencias = models.CharField(max_length=50, choices=[(tag.name, tag.name.replace('_', ' ')) for tag in SinaisViolencias], default=SinaisViolencias.AUSENTE.name)
     acidentes_domiciliares = models.CharField(max_length=50, choices=[(tag.name, tag.name.replace('_', ' ')) for tag in AcidentesDomiciliares], default=AcidentesDomiciliares.NAO.name)
+
+    
+class DesenvolvimentoInfantil(models.Model):
+    MORO_REFLEX_CHOICES = [
+        ('P', 'Presente'),
+        ('A', 'Ausente'),
+        ('NV', 'Não Verificado'),
+    ]
+
+    crianca = models.ForeignKey(Crianca, on_delete=models.CASCADE)
+    reflexo_moro = models.CharField(max_length=2, choices=MORO_REFLEX_CHOICES, blank=True)
+    reflexo_cocleo_palpebral = models.CharField(max_length=2, choices=MORO_REFLEX_CHOICES, blank=True)
+    reflexo_succao = models.CharField(max_length=2, choices=MORO_REFLEX_CHOICES, blank=True)
+    bracos_pernas_flexionados = models.CharField(max_length=2, choices=MORO_REFLEX_CHOICES, blank=True)
+    postura_cabeca_lateralizada = models.CharField(max_length=2, choices=MORO_REFLEX_CHOICES, blank=True)
+    observa_rosto = models.CharField(max_length=2, choices=MORO_REFLEX_CHOICES, blank=True)
+    reage_som = models.CharField(max_length=2, choices=MORO_REFLEX_CHOICES, blank=True)
+    eleva_cabeca = models.CharField(max_length=2, choices=MORO_REFLEX_CHOICES, blank=True)
+
+    def __str__(self):
+        return f"Desenvolvimento Infantil - {self.crianca} - {self.pk}"

@@ -1,9 +1,9 @@
 from rest_framework import viewsets
 
 
-from .models import ProfissionalDeSaude, Vacina, ProfissionalSaudeEUSF, UnidadeSaudeFamiliar, HistoricoDeVacinas, Cuidador, CuidadorCrianca, Crianca, CrescimentoCrianca, Agendamento, Endereco, Consulta, Medico, CriancaVacina, Desenvolvimento, SinaisAlerta, CuidadosEspeciais, Aleitamento, LeiteArtificial, Aplicacao, ExameOcular, CuidadosEspeciais
+from .models import ProfissionalDeSaude, Vacina, ProfissionalSaudeEUSF, UnidadeSaudeFamiliar, HistoricoDeVacinas, Cuidador, CuidadorCrianca, Crianca, CrescimentoCrianca, Agendamento, Endereco, Consulta, Medico, CriancaVacina, Desenvolvimento, SinaisAlerta, CuidadosEspeciais, Aleitamento, LeiteArtificial, Aplicacao, ExameOcular, CuidadosEspeciais,DesenvolvimentoInfantil
 
-from .serializers import ProfissionalDeSaudeSerializer, VacinaSerializer, ProfissionalSaudeEUSFSerializer, UnidadeSaudeFamiliarSerializer, HistoricoDeVacinasSerializer, CuidadorSerializer, CuidadorCriancaSerializer, CriancaSerializer, CrescimentoCriancaSerializer, AgendamentoSerializer, EnderecoSerializer, ConsultaSerializer, MedicoSerializer, CriancaVacinaSerializer, DesenvolvimentoSerializer, SinaisAlertaSerializer, CuidadosEspeciaisSerializer, AleitamentoSerializer, LeiteArtificialSerializer, AplicacaoSerializer, ExameOcularSerializer, CuidadosEspeciaisSerializer
+from .serializers import ProfissionalDeSaudeSerializer, VacinaSerializer, ProfissionalSaudeEUSFSerializer, UnidadeSaudeFamiliarSerializer, HistoricoDeVacinasSerializer, CuidadorSerializer, CuidadorCriancaSerializer, CriancaSerializer, CrescimentoCriancaSerializer, AgendamentoSerializer, EnderecoSerializer, ConsultaSerializer, MedicoSerializer, CriancaVacinaSerializer, DesenvolvimentoSerializer, SinaisAlertaSerializer, CuidadosEspeciaisSerializer, AleitamentoSerializer, LeiteArtificialSerializer, AplicacaoSerializer, ExameOcularSerializer, CuidadosEspeciaisSerializer, DesenvolvimentoInfantilSerializer
 
 
 
@@ -95,3 +95,11 @@ class ExameOcularViewSet(viewsets.ModelViewSet):
 class CuidadosEspeciaisViewSet(viewsets.ModelViewSet):
     queryset = CuidadosEspeciais.objects.all()
     serializer_class = CuidadosEspeciaisSerializer
+
+class CriancaViewSet(viewsets.ModelViewSet):
+    queryset = Crianca.objects.all()
+    serializer_class = CriancaSerializer
+
+class DesenvolvimentoInfantilViewSet(viewsets.ModelViewSet):
+    queryset = DesenvolvimentoInfantil.objects.all()
+    serializer_class = DesenvolvimentoInfantilSerializer
