@@ -11,6 +11,11 @@ class CrescimentoCriancaSerializer(serializers.ModelSerializer):
         model = CrescimentoCrianca
         fields = '__all__'
 
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        data['avaliacao_medida'] = instance.avaliar_medida()
+        return data
+
 class AleitamentoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Aleitamento
