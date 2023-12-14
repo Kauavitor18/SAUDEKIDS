@@ -4,21 +4,27 @@ from enum import Enum, auto
 # Crescimento Crianca
 
 class CrescimentoCrianca(models.Model):
-    IDADE_CHOICES = [
-        ('primeira semana', 'Primeira semana'),
-        ('1 mês', '1 mês'),
-        ('2 meses', '2 meses'),
-        ('3 meses', '3 meses'),
-        ('4 meses', '4 meses'),
-        ('5 meses', '5 meses'),
-        ('6 meses', '6 meses'),
-        ('9 meses', '9 meses'),
-        ('12 meses', '12 meses'),
-        ('18 meses', '18 meses'),
-        ('24 meses', '24 meses'),
-        ('36 meses', '36 meses'),
+    GENERO_CHOICES = [
+        ('M', 'Menino'),
+        ('F', 'Menina'),
     ]
 
+    IDADE_CHOICES = [
+    ('primeira semana', 'Primeira semana'),
+    ('1 mês', '1 mês'),
+    ('2 meses', '2 meses'),
+    ('3 meses', '3 meses'),
+    ('4 meses', '4 meses'),
+    ('5 meses', '5 meses'),
+    ('6 meses', '6 meses'),
+    ('9 meses', '9 meses'),
+    ('12 meses', '12 meses'),
+    ('18 meses', '18 meses'),
+    ('24 meses', '24 meses'),
+    ('36 meses', '36 meses'),
+]
+
+    genero = models.CharField(max_length=1, choices=GENERO_CHOICES, default='M')
     idadeCrianca = models.CharField(max_length=15, choices=IDADE_CHOICES, default='Escolha')
     altura = models.FloatField()  # Altura em centímetros
     peso = models.FloatField()  # Peso em quilogramas
@@ -26,37 +32,61 @@ class CrescimentoCrianca(models.Model):
     imc = models.FloatField(null=True, blank=True)  # Campo para armazenar o IMC
 
     def calcular_imc(self):
-        altura_metros = self.altura / 100  # Converte altura de centímetros para metros
+        altura_metros = self.altura / 100  # Convertendo altura de centímetros para metros
         imc = self.peso / (altura_metros ** 2)
         return round(imc, 2)  # Arredonda o IMC para 2 casas decimais
 
     def avaliar_medida(self):
         percentis = {
-            'primeira semana': (30.7, 34.5, 38.3),
-            '1 mês': (33.8, 37.3, 40.8),
-            '2 meses': (35.6, 39.1, 42.6),
-            '3 meses': (37.0, 40.5, 44.1),
-            '4 meses': (38.0, 41.6, 45.2),
-            '5 meses': (38.9, 42.6, 46.2),
-            '6 meses': (39.7, 43.3, 47.0),
-            '9 meses': (40.8, 44.5, 48.3),
-            '12 meses': (41.2, 45.0, 48.8),
-            '18 meses': (41.9, 45.8, 49.6),
-            '24 meses': (42.2, 46.1, 49.9),
-            '36 meses': (43.4, 47.4, 51.7),
+            'M': {
+                'primeira semana': (30.7, 34.5, 38.3),
+                '1 mês': (33.8, 37.3, 40.8),
+                '2 meses': (35.6, 39.1, 42.6),
+                '3 meses': (37.0, 40.5, 44.1),
+                '4 meses': (38.0, 41.6, 45.2),
+                '5 meses': (38.9, 42.6, 46.2),
+                '6 meses': (39.7, 43.3, 47.0),
+                '9 meses': (40.8, 44.5, 48.3),
+                '12 meses': (41.2, 45.0, 48.8),
+                '18 meses': (41.9, 45.8, 49.6),
+                '24 meses': (42.2, 46.1, 49.9),
+                '36 meses': (43.4, 47.4, 51.7),
+            },
+            'F': {
+                'primeira semana': (30.3, 33.9, 37.4),
+                '1 mês': (33.0, 36.5, 40.1),
+                '2 meses': (34.6, 38.3, 41.9),
+                '3 meses': (35.8, 39.5, 43.3),
+                '4 meses': (36.8, 40.6, 44.4),
+                '5 meses': (37.6, 41.5, 45.3),
+                '6 meses': (38.3, 42.2, 46.1),
+                '9 meses': (38.9, 42.8, 46.8),
+                '12 meses': (39.4, 43.4, 47.4),
+                '18 meses': (39.8, 43.8, 47.8),
+                '24 meses': (40.2, 44.2, 48.3),
+                '36 meses': (40.8, 45.9, 49.0),
+            },
         }
 
-        percentil_10, mediana, percentil_90 = percentis.get(self.idadeCrianca, (None, None, None))
+        percentil_10, mediana, percentil_90 = percentis.get(self.genero, {}).get(self.idadeCrianca, (None, None, None))
 
         if percentil_10 is not None:
-            if self.perimetro < percentil_10:
-                return 'Abaixo do percentil 10 - Abaixo da média'
-            elif percentil_10 <= self.perimetro <= percentil_90:
-                return 'Entre os percentis 10 e 90 - Na média'
-            else:
-                return 'Acima do percentil 90 - Acima da média'
+            if self.genero == 'M':
+                if self.perimetro < percentil_10:
+                    return 'Abaixo do percentil 10 - Abaixo da média para meninos'
+                elif percentil_10 <= self.perimetro <= percentil_90:
+                    return 'Entre os percentis 10 e 90 - Na média para meninos'
+                else:
+                    return 'Acima do percentil 90 - Acima da média para meninos'
+            elif self.genero == 'F':
+                if self.perimetro < percentil_10:
+                    return 'Abaixo do percentil 10 - Abaixo da média para meninas'
+                elif percentil_10 <= self.perimetro <= percentil_90:
+                    return 'Entre os percentis 10 e 90 - Na média para meninas'
+                else:
+                    return 'Acima do percentil 90 - Acima da média para meninas'
         else:
-            return 'Faixa etária não encontrada'
+            return 'Faixa etária ou gênero não encontrados'
 
     def save(self, *args, **kwargs):
         self.full_clean()  # Chama a função clean antes de salvar
